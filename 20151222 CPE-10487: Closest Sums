@@ -1,11 +1,49 @@
-/*Almost Done!*/
+/*Almost Done! Just need to make it so that the outputs hold until all inputs are done*/
 
 #include <iostream>
 
-int NumPool[100];
-int QueryPool[100];
+int NumPool[1000];
+int QueryPool[25];
 int numPoolSize;
 int queryPoolSize;
+
+void makeNumPool(int numOfInputs);
+
+void makeQueryPool(int numOfQuery);
+
+void makeClosestSums(int *numPoolArray, int *queryPoolArray);
+
+void flushArray(int *nameOfArray, int sizeOfArray);
+
+void showArray(int *nameOfArray, int sizeOfArray);
+
+
+int main()
+{
+   int input;
+   while ( 1 )
+   {   
+       std::cin >> input;
+       if ( input == 0 )
+          return 0;
+       else
+          makeNumPool(input);
+   
+   
+       std::cin >> input;
+       if ( input == 0 )
+          return 0;
+       else
+          makeQueryPool(input);
+
+
+       makeClosestSums(NumPool, QueryPool);
+       
+       flushArray(NumPool, numPoolSize);
+   }
+   
+   return 0;
+}
 
 void makeNumPool(int numOfInputs)
 {
@@ -25,7 +63,7 @@ void makeQueryPool(int numOfQuery)
     }
 }
 
-int makeClosestSums(int *numPoolArray, int *queryPoolArray)
+void makeClosestSums(int *numPoolArray, int *queryPoolArray)
 {
     int smallestdiff = 1500;
     int diff = 1500;
@@ -54,18 +92,19 @@ int makeClosestSums(int *numPoolArray, int *queryPoolArray)
     }
 }
 
-int main()
+void flushArray(int *nameOfArray, int sizeOfArray)
 {
-   int input;
-   
-   std::cin >> input;
-   makeNumPool(input);
-   
-   std::cin >> input;
-   makeQueryPool(input);
- 
-   makeClosestSums(NumPool, QueryPool);
-   
-   return 0;
+    for(int i = 0; i < sizeOfArray; i++)
+    {
+        nameOfArray[i] = 0;
+    }
+}
+
+void showArray(int *nameOfArray, int sizeOfArray)
+{
+    for(int i = 0; i < sizeOfArray; i++)
+    {
+        std::cout << nameOfArray[i] << " ";
+    }
 }
 
