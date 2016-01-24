@@ -1,0 +1,69 @@
+#include <iostream>
+
+int NumPool[100];
+int QueryPool[100];
+int numPoolSize;
+int queryPoolSize;
+
+void makeNumPool(int numOfInputs)
+{
+    numPoolSize = numOfInputs;
+    for(int i = 0; i < numOfInputs; i++)
+    {
+        std::cin >> NumPool[i];
+    }
+}
+
+void makeQueryPool(int numOfQuery)
+{
+    queryPoolSize = numOfQuery;
+    for(int i = 0; i < numOfQuery; i++)
+    {
+        std::cin>> QueryPool[i];
+    }
+}
+
+int makeClosestSums(int *numPoolArray, int *queryPoolArray)
+{
+    int smallestdiff = 1500;
+    int diff = 1500;
+    int sum = 0;
+    int smallestsum = 0;
+    for (int i = 0 ; i < queryPoolSize; i++)
+    {
+       for(int k = 0; k < numPoolSize; k++)
+        {
+         for(int q = k+1; q < numPoolSize; q++)
+            {
+               sum = NumPool[k] + NumPool[q];
+                diff = sum - QueryPool[i];
+                if (diff < 0)
+                    diff = diff * -1;
+               if (diff < smallestdiff)
+                {
+                    smallestdiff = diff;
+                    smallestsum = sum;
+                }
+            }
+        }
+        std::cout << "Closest sum to " << QueryPool[i] << " is " << smallestsum << "." << std::endl;
+        smallestdiff = 1500;
+        smallestsum = 0;
+    }
+}
+
+int main()
+{
+   int input;
+   
+   std::cin >> input;
+   makeNumPool(input);
+   
+   std::cin >> input;
+   makeQueryPool(input);
+ 
+   makeClosestSums(NumPool, QueryPool);
+   
+   return 0;
+}
+
