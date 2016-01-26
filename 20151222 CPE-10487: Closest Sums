@@ -1,11 +1,16 @@
 /*Almost Done! Just need to make it so that the outputs hold until all inputs are done*/
 
 #include <iostream>
+#include <string>
+#include <vector>
 
 int NumPool[1000];
 int QueryPool[25];
 int numPoolSize;
 int queryPoolSize;
+std::vector<std::string> outputStorage;
+int outputStorageIndex = 0;
+std::string outputBeforeStorage;
 
 void makeNumPool(int numOfInputs);
 
@@ -17,22 +22,36 @@ void flushArray(int *nameOfArray, int sizeOfArray);
 
 void showArray(int *nameOfArray, int sizeOfArray);
 
+void storeOutput(std::string output);
+
+void printAllOutput(void);
+
 
 int main()
 {
+    std:: string ooutput = "LOL";
+    storeOutput(ooutput);
+    printAllOutput();
+   outputStorage.resize(1);
    int input;
    while ( 1 )
    {   
        std::cin >> input;
        if ( input == 0 )
-          return 0;
+       {
+            printAllOutput();
+            return 0;
+       }
        else
           makeNumPool(input);
    
    
        std::cin >> input;
        if ( input == 0 )
-          return 0;
+       {
+            printAllOutput();
+            return 0;
+       }
        else
           makeQueryPool(input);
 
@@ -86,7 +105,9 @@ void makeClosestSums(int *numPoolArray, int *queryPoolArray)
                 }
             }
         }
-        std::cout << "Closest sum to " << QueryPool[i] << " is " << smallestsum << "." << std::endl;
+        outputBeforeStorage = "Closest sum to " + std::to_string(QueryPool[i]) + " is " + std::to_string(smallestsum) + ".";
+        storeOutput(outputBeforeStorage);
+        //std::cout << "Closest sum to " << QueryPool[i] << " is " << smallestsum << "." << std::endl;
         smallestdiff = 1500;
         smallestsum = 0;
     }
@@ -108,3 +129,17 @@ void showArray(int *nameOfArray, int sizeOfArray)
     }
 }
 
+void storeOutput(std::string output)
+{
+    outputStorage.at(outputStorageIndex) = output;
+    outputStorageIndex++;
+    outputStorage.resize(outputStorageIndex + 1);
+}
+
+void printAllOutput(void)
+{
+    for(int i = 0; i <= outputStorageIndex; i++)
+    {
+        std::cout << outputStorage.at(outputStorageIndex) << std::endl;
+    }
+}
