@@ -1,4 +1,4 @@
-/*Almost Done! Just need to make it so that the outputs hold until all inputs are done*/
+/*Completely Working!*/
 
 #include <iostream>
 #include <string>
@@ -11,6 +11,7 @@ int queryPoolSize;
 std::vector<std::string> outputStorage;
 int outputStorageIndex = 0;
 std::string outputBeforeStorage;
+int casecount = 0;
 
 void makeNumPool(int numOfInputs);
 
@@ -29,13 +30,11 @@ void printAllOutput(void);
 
 int main()
 {
-    std:: string ooutput = "LOL";
-    storeOutput(ooutput);
-    printAllOutput();
    outputStorage.resize(1);
    int input;
    while ( 1 )
    {   
+       casecount++;
        std::cin >> input;
        if ( input == 0 )
        {
@@ -55,7 +54,10 @@ int main()
        else
           makeQueryPool(input);
 
-
+       outputBeforeStorage = "Case " + std::to_string(casecount) + ":";
+       
+       storeOutput(outputBeforeStorage);
+       
        makeClosestSums(NumPool, QueryPool);
        
        flushArray(NumPool, numPoolSize);
@@ -107,7 +109,6 @@ void makeClosestSums(int *numPoolArray, int *queryPoolArray)
         }
         outputBeforeStorage = "Closest sum to " + std::to_string(QueryPool[i]) + " is " + std::to_string(smallestsum) + ".";
         storeOutput(outputBeforeStorage);
-        //std::cout << "Closest sum to " << QueryPool[i] << " is " << smallestsum << "." << std::endl;
         smallestdiff = 1500;
         smallestsum = 0;
     }
@@ -140,6 +141,6 @@ void printAllOutput(void)
 {
     for(int i = 0; i <= outputStorageIndex; i++)
     {
-        std::cout << outputStorage.at(outputStorageIndex) << std::endl;
+        std::cout << outputStorage.at(i) << std::endl;
     }
 }
