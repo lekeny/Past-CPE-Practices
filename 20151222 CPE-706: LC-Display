@@ -1,0 +1,74 @@
+#include <iostream>
+
+char numArray;
+char outputArray;
+bool backToHoriLine = true;
+int backToHoriLineCount = 1;
+int verLineCount = 1;
+
+void makeTWO(int size, int numToBeConvertedIntoLCStyle)
+{
+    for(int i = 0; i < (2 * size + 3); i++)
+    {
+        if ( backToHoriLine == true )
+        {
+            for(int l = 0; l < (size - 1); l++)
+            {
+                std::cout << " ";
+            }
+            for(int m = 0; m < size; m++)
+            {
+                std::cout << "-";
+            }
+            for(int l = 0; l < (size - 1); l++)
+            {
+                std::cout << " ";
+            }
+            std::cout << std::endl;
+            backToHoriLine = false;
+            backToHoriLineCount++;
+            
+        }
+        else if ( backToHoriLine == false )
+        {
+            if ( backToHoriLineCount == 2 )
+            {
+                for(int l = 0; l < (size + 1); l++)
+                {
+                    std::cout << " ";
+                }
+                for(int m = 0; m < (size - 1); m++)
+                {
+                    std::cout << "|";
+                }
+                verLineCount++;
+            }
+            else if ( backToHoriLineCount == 3 )
+            {
+                for(int m = 0; m < (size - 1); m++)
+                {
+                    std::cout << "|";
+                }
+                for(int l = 0; l < (size + 1); l++)
+                {
+                    std::cout << " ";
+                }
+                verLineCount++;
+            }
+            std::cout << std::endl;
+            if (verLineCount > 2)
+            {
+                verLineCount = 1;
+                backToHoriLine = true;
+            }
+        }
+    }
+}
+
+
+int main(void)
+{
+    makeTWO(3, 2);
+    
+    return 0;
+}
