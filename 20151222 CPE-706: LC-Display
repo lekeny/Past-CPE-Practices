@@ -17,7 +17,7 @@ void makeTWO(int size, int numberToBePrinted);
 
 int main(void)
 {
-    makeTWO(3, 1);
+    makeTWO(2, 5);
     
     return 0;
 }
