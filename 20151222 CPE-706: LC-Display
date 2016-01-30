@@ -1,6 +1,5 @@
-/*Able to produce "2" in LC mode now
+/*Able to produce all 0~9 in LC mode now
 
-TODO: Make LC modes for 0~9
 TODO: Allow inputs to have more than one digit
 
 */
@@ -9,73 +8,124 @@ TODO: Allow inputs to have more than one digit
 
 char numArray;
 char outputArray;
-bool backToHoriLine = true;
-int backToHoriLineCount = 1;
+bool makeHoriLine = true;
+int horiLineIndex = 1;
 int verLineCount = 1;
 
-void makeTWO(int size)
+void makeTWO(int size, int numberToBePrinted);
+
+
+int main(void)
+{
+    makeTWO(3, 1);
+    
+    return 0;
+}
+
+void makeTWO(int size, int numberToBePrinted)
 {
     for(int i = 0; i < (2 * size + 3); i++)
     {
-        if ( backToHoriLine == true )
+        if ( makeHoriLine == true )
         {
             for(int l = 0; l < 1; l++)
             {
                 std::cout << " ";
             }
+            
             for(int m = 0; m < size; m++)
             {
-                std::cout << "-";
+                if( horiLineIndex == 1 && (numberToBePrinted == 2 || numberToBePrinted == 3 || numberToBePrinted == 5 || numberToBePrinted == 6 || numberToBePrinted == 7 || numberToBePrinted == 8 || numberToBePrinted == 9 || numberToBePrinted == 0) ) 
+                {
+                    std::cout << "-";  
+                }
+                else if( horiLineIndex == 2 && (numberToBePrinted == 2 || numberToBePrinted == 3 || numberToBePrinted == 4 || numberToBePrinted == 5 || numberToBePrinted == 6 || numberToBePrinted == 8 || numberToBePrinted == 9) ) 
+                {
+                    std::cout << "-";  
+                }  
+                else if( horiLineIndex == 3 && (numberToBePrinted == 2 || numberToBePrinted == 3 || numberToBePrinted == 5 || numberToBePrinted == 6 || numberToBePrinted == 8 || numberToBePrinted == 9 || numberToBePrinted == 0) ) 
+                {
+                    std::cout << "-";  
+                }                  
+                else
+                {
+                    std::cout << " ";
+                }
             }
+            
             for(int l = 0; l < (size - 1); l++)
             {
                 std::cout << " ";
             }
             std::cout << std::endl;
-            backToHoriLine = false;
-            backToHoriLineCount++;
+            makeHoriLine = false;
+            horiLineIndex++;
             
         }
-        else if ( backToHoriLine == false )
+        else if ( makeHoriLine == false )
         {
-            if ( backToHoriLineCount == 2 )
+            if ( horiLineIndex == 2 )
             {
-                for(int l = 0; l < (size + 1); l++)
+                if( numberToBePrinted == 4 || numberToBePrinted == 5 || numberToBePrinted == 6 || numberToBePrinted == 8 || numberToBePrinted == 8 || numberToBePrinted == 9 || numberToBePrinted == 0 ) 
+                {
+                    std::cout << "|";  
+                }
+                else
                 {
                     std::cout << " ";
                 }
-                for(int m = 0; m < 1; m++)
+                
+                for(int l = 0; l < size; l++)
                 {
-                    std::cout << "|";
+                    std::cout << " ";
                 }
+                
+                if( numberToBePrinted == 1 || numberToBePrinted == 2 || numberToBePrinted == 3 || numberToBePrinted == 4 || numberToBePrinted == 7 || numberToBePrinted == 8 || numberToBePrinted == 9 || numberToBePrinted == 0 ) 
+                {
+                    std::cout << "|";  
+                }
+                else
+                {
+                    std::cout << " ";
+                }
+                
                 verLineCount++;
             }
-            else if ( backToHoriLineCount == 3 )
+            else if ( horiLineIndex == 3 )
             {
-                for(int m = 0; m < 1; m++)
+                if( numberToBePrinted == 2 || numberToBePrinted == 6 || numberToBePrinted == 8 || numberToBePrinted == 0 ) 
                 {
-                    std::cout << "|";
+                    std::cout << "|";  
                 }
-                for(int l = 0; l < (size + 1); l++)
+                else
                 {
                     std::cout << " ";
                 }
+                
+                
+                for(int l = 0; l < size; l++)
+                {
+                    std::cout << " ";
+                }
+                
+                if( numberToBePrinted == 1 || numberToBePrinted == 3 || numberToBePrinted == 4 || numberToBePrinted == 5 || numberToBePrinted == 6 || numberToBePrinted == 7 || numberToBePrinted == 8 || numberToBePrinted == 9 || numberToBePrinted == 0 ) 
+                {
+                    std::cout << "|";  
+                }
+                else
+                {
+                    std::cout << " ";
+                }
+                
+                
                 verLineCount++;
             }
             std::cout << std::endl;
             if (verLineCount > size)
             {
                 verLineCount = 1;
-                backToHoriLine = true;
+                makeHoriLine = true;
             }
         }
     }
-}
-
-
-int main(void)
-{
-    makeTWO(3);
-    
-    return 0;
 }
