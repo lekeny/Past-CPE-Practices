@@ -1,0 +1,186 @@
+/* Completely Working! */
+
+#include <iostream>
+#include <string>
+
+void numberToLC(int size, int numberToBePrinted);
+
+int main(void)
+{
+    
+    int inputStorage[100];
+    for(int i = 0; i < 100; i++)
+    {
+        inputStorage[i] = -1;
+    }
+    
+    int inputStorageIndex = 0;
+    int size = 0;
+    int numberToBePrinted = 0;
+    
+    while ( 1 )
+    { 
+        std::cin >> size;
+        inputStorage[inputStorageIndex] = size;
+        inputStorageIndex++;
+        
+        std::cin >> numberToBePrinted;
+        inputStorage[inputStorageIndex] = numberToBePrinted;
+        inputStorageIndex++;
+        
+        if ( size == 0 && numberToBePrinted == 0 )
+        {
+            inputStorageIndex = 0;
+            
+            while(inputStorage[inputStorageIndex] != -1 )
+            {
+                numberToLC(inputStorage[inputStorageIndex], inputStorage[inputStorageIndex+1]);
+                inputStorageIndex += 2;
+            }
+            return 0;
+        }
+    }
+    return 0;
+}
+
+void numberToLC(int size, int numberToBePrintedOriginal)
+{
+    if (size <= 0 )
+    {
+        return;
+    }
+    
+    int numberToBePrinted = numberToBePrintedOriginal;
+    bool makeHoriLine = true;
+    int horiLineIndex = 1;
+    int verLineCount = 1;
+    std::string numbersToBeConverted;
+    
+    numbersToBeConverted = std::to_string(numberToBePrinted);
+    
+    for(int i = 0; i < (2 * size + 3); i++)
+    {
+        if ( makeHoriLine == true )
+        {
+            for(int q = 0; q < (int)numbersToBeConverted.size(); q++)
+            {
+                numberToBePrinted = numbersToBeConverted[q] - 48;
+                    
+                for(int l = 0; l < 1; l++)
+                {
+                    std::cout << " ";
+                }
+                
+                for(int m = 0; m < size; m++)
+                {
+                    if( horiLineIndex == 1 && (numberToBePrinted == 2 || numberToBePrinted == 3 || numberToBePrinted == 5 || numberToBePrinted == 6 || numberToBePrinted == 7 || numberToBePrinted == 8 || numberToBePrinted == 9 || numberToBePrinted == 0) ) 
+                    {
+                        std::cout << "-";  
+                    }
+                    else if( horiLineIndex == 2 && (numberToBePrinted == 2 || numberToBePrinted == 3 || numberToBePrinted == 4 || numberToBePrinted == 5 || numberToBePrinted == 6 || numberToBePrinted == 8 || numberToBePrinted == 9) ) 
+                    {
+                        std::cout << "-";  
+                    }  
+                    else if( horiLineIndex == 3 && (numberToBePrinted == 2 || numberToBePrinted == 3 || numberToBePrinted == 5 || numberToBePrinted == 6 || numberToBePrinted == 8 || numberToBePrinted == 9 || numberToBePrinted == 0) ) 
+                    {
+                        std::cout << "-";  
+                    }                  
+                    else
+                    {
+                        std::cout << " ";
+                    }
+                }
+                
+                for(int l = 0; l < 1; l++)
+                {
+                    std::cout << " ";
+                }
+                
+                std::cout<< " ";
+            }
+
+            std::cout << std::endl;
+            makeHoriLine = false;
+            horiLineIndex++;
+            
+        }
+        else if ( makeHoriLine == false )
+        {
+            if ( horiLineIndex == 2 )
+            {
+                for(int q = 0; q < (int)numbersToBeConverted.size(); q++)
+                {
+                    numberToBePrinted = numbersToBeConverted[q] - 48;
+                            
+                    if( numberToBePrinted == 4 || numberToBePrinted == 5 || numberToBePrinted == 6 || numberToBePrinted == 8 || numberToBePrinted == 8 || numberToBePrinted == 9 || numberToBePrinted == 0 ) 
+                    {
+                        std::cout << "|";  
+                    }
+                    else
+                    {
+                        std::cout << " ";
+                    }
+                    
+                    for(int l = 0; l < size; l++)
+                    {
+                        std::cout << " ";
+                    }
+                    
+                    if( numberToBePrinted == 1 || numberToBePrinted == 2 || numberToBePrinted == 3 || numberToBePrinted == 4 || numberToBePrinted == 7 || numberToBePrinted == 8 || numberToBePrinted == 9 || numberToBePrinted == 0 ) 
+                    {
+                        std::cout << "|";  
+                    }
+                    else
+                    {
+                        std::cout << " ";
+                    }
+    
+                        std::cout << " ";
+                }
+                verLineCount++;
+            }
+            else if ( horiLineIndex == 3 )
+            {
+                for(int q = 0; q < (int)numbersToBeConverted.size(); q++)
+                {
+                    numberToBePrinted = numbersToBeConverted[q] - 48;
+                        
+                    if( numberToBePrinted == 2 || numberToBePrinted == 6 || numberToBePrinted == 8 || numberToBePrinted == 0 ) 
+                    {
+                        std::cout << "|";  
+                    }
+                    else
+                    {
+                        std::cout << " ";
+                    }
+                    
+                    
+                    for(int l = 0; l < size; l++)
+                    {
+                        std::cout << " ";
+                    }
+                    
+                    if( numberToBePrinted == 1 || numberToBePrinted == 3 || numberToBePrinted == 4 || numberToBePrinted == 5 || numberToBePrinted == 6 || numberToBePrinted == 7 || numberToBePrinted == 8 || numberToBePrinted == 9 || numberToBePrinted == 0 ) 
+                    {
+                        std::cout << "|";  
+                    }
+                    else
+                    {
+                        std::cout << " ";
+                    }
+    
+                        std::cout << " ";
+                }
+                verLineCount++;
+            }
+            
+            std::cout << std::endl;
+            
+            if (verLineCount > size)
+            {
+                verLineCount = 1;
+                makeHoriLine = true;
+            }
+        }
+    }
+}
