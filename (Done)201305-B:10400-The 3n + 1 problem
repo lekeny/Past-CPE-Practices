@@ -1,0 +1,69 @@
+#include <iostream>
+
+int main(void)
+{
+    long long int firstNumber, secondNumber, cycleLength = 0, maxCycleLength = 0;
+
+    int isSwapped = 0;
+
+    while(std::cin >> firstNumber >> secondNumber)
+    {
+        isSwapped = 0;
+        if ( firstNumber < secondNumber )
+        {
+
+        }
+        else
+        {
+            isSwapped = 1;
+            int temp = firstNumber;
+            firstNumber = secondNumber;
+            secondNumber = temp;
+        }
+
+        maxCycleLength = 0;
+        for(long long int i = firstNumber; i <= secondNumber; i++)
+        {
+
+            long long int copyOfi = i;
+            cycleLength = 0;
+
+            while ( copyOfi >= 1 )
+            {
+                if ( copyOfi == 1 )
+                {
+                    cycleLength++;
+                    break;
+                }
+                else
+                {
+                    cycleLength++;
+                    if( copyOfi % 2 == 0 )
+                    {
+                        copyOfi /= 2;
+                    }
+                    else
+                    {
+                        copyOfi = copyOfi * 3 + 1;
+                    }
+                }
+            }
+            if ( cycleLength > maxCycleLength )
+            {
+                maxCycleLength = cycleLength;
+            }
+        }
+
+        if ( isSwapped == 0 )
+        {
+            std::cout << firstNumber << " " << secondNumber << " " << maxCycleLength << std::endl;
+        }
+        else
+        {
+            std::cout << secondNumber << " " << firstNumber << " " << maxCycleLength << std::endl;
+        }
+
+    }
+
+    return 0;
+}
