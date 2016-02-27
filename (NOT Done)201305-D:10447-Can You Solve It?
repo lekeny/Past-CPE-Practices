@@ -1,74 +1,60 @@
-#include <iostream>
-#include <string>
-#include <sstream>
+//Can you solve it?
 
-std::string path[15] = { "0,0", "0,1", "1,0", "0,2", "1,1", "2,0", "0,3", "1,2", "2,1", "3,0", "0,4", "1,3", "2,2", "3,1", "4,0" };
+#include <iostream>
 
 int main(void)
 {
-	std::string input, source, target;
+    int amountOfCases, currentCase = 0, stepsFromOriginToPointOne, stepsFromOriginToPointTwo, stepsNeededBetweenTwoPoints;
 
-	int stepsTaken = 0, sourceIndex = 0, targetIndex = 0;
+    unsigned long long int x1, y1, x2, y2;
 
-	int currentCase = 0, amountOfCases = 0;
+    std::cin >> amountOfCases;
 
-	long long int a, b, c, d;
+    if (amountOfCases <= 0 || amountOfCases >500)
+    {
+        return 0;
+    }
 
-	std::cin >> amountOfCases;
+    for(int i = 0; i < amountOfCases; i++)
+    {
+        currentCase++;
+        std::cin >> x1 >> y1 >> x2 >> y2;
 
-	std::cin.ignore();
+        if (x1 < 0 || x1 > 100000)
+        {
+            currentCase--;
+            continue;
+        }
+        else if (x2 < 0 || x2 > 100000)
+        {
+            currentCase--;
+            continue;
+        }
+        else if (y1 < 0 || y1 > 100000)
+        {
+            currentCase--;
+            continue;
+        }
+        else if (y2 < 0 || y2 > 100000)
+        {
+            currentCase--;
+            continue;
+        }
 
-	for (int k = 0; k < amountOfCases; k++)
-	{
-		currentCase++;
-		source = "";
-		target = "";
+        stepsFromOriginToPointOne = ((1+(x1+y1)) * (x1+y1) / 2) + x1;
+        stepsFromOriginToPointTwo = ((1+(x2+y2)) * (x2+y2) / 2) + x2;
 
-		//std::getline(std::cin, input);
+        stepsNeededBetweenTwoPoints = stepsFromOriginToPointTwo - stepsFromOriginToPointOne;
 
-		std::cin >> a >> b >> c >> d;
+        if ( stepsNeededBetweenTwoPoints < 0 )
+        {
+            currentCase--;
+            continue;
+        }
 
-		std::string aString, bString, cString, dString;
-		std::stringstream out;
-		out << a;
-		aString = out.str();
-		out.str("");
-		out << b;
-		bString = out.str();
-		out.str("");
-		out << c;
-		cString = out.str();
-		out.str("");
-		out << d;
-		dString = out.str();
-		out.str("");
+        std::cout << "Case " << currentCase << ": " << stepsNeededBetweenTwoPoints << std::endl;
 
-		source = source + aString + "," + bString;
+    }
 
-		target = target + cString + "," + dString;
-
-		//std::cout << "source is: " << source << " and target is " << target << std::endl;
-
-		for (int i = 0; i < 15; i++)
-		{
-			if (path[i] == source)
-			{
-				sourceIndex = i;
-			}
-			else if (path[i] == target)
-			{
-				targetIndex = i;
-			}
-		}
-
-		stepsTaken = targetIndex - sourceIndex;
-		//std::cout << "source is: " << sourceIndex << " and target is " << targetIndex << std::endl;
-
-		std::cout << "Case " << currentCase << ": " << stepsTaken;
-
-	}
-
-
-
-	return 0;
+    return 0;
 }
