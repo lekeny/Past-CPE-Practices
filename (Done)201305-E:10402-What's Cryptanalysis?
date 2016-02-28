@@ -1,0 +1,57 @@
+//Cryptanalysis
+
+#include <iostream>
+#include <string>
+
+int answer[130];
+
+int main(void)
+{
+    int amountOfCases, maxCount = -1;
+
+    std::string input;
+    std::cin >> amountOfCases;
+    std::cin.ignore();
+
+    while(amountOfCases--)
+    {
+        std::getline(std::cin, input);
+
+        for(int i = 0; i < (int)input.size(); i++)
+        {
+            if ( input[i] >= 'a' && input[i] <= 'z' )
+            {
+                answer[input[i]]++;
+                if (answer[input[i]] > maxCount)
+                {
+                    maxCount = answer[input[i]];
+                }
+            }
+            else if ( input[i] >= 'A' && input[i] <= 'Z' )
+            {
+                answer[tolower(input[i])]++;
+                if (answer[input[i]] > maxCount)
+                {
+                    maxCount = answer[tolower(input[i])];
+                }
+            }
+        }
+    }
+
+    char outputLetter;
+    maxCount++;
+
+    while(maxCount--)
+    {
+        for(int i = 0; i < 130; i++)
+        {
+            if (answer[i] == maxCount && maxCount > 0)
+            {
+                outputLetter = toupper(i);
+                std::cout << outputLetter << " " << maxCount << std::endl;
+            }
+        }
+    }
+
+    return 0;
+}
