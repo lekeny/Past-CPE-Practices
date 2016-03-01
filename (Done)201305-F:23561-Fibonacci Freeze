@@ -1,0 +1,98 @@
+#include <iostream>
+#include <string>
+#include <string.h>
+
+int source[10000], Fi[10000], FiMinus1[10000], FiMinus2[10000];
+
+int inputBigNum(std::string bigNum, int *input)
+{
+    int index = 0;
+    for(int i = bigNum.size() - 1; i >= 0; i--)
+    {
+        input[index] = bigNum[i] - '0';
+        index++;
+    }
+    return 1;
+}
+
+void addTwoBigNums(int *Fi, int *FiMinus1, int *F1Minus2)
+{
+    for(int i = 0; i < 9999; i++)
+    {
+        Fi[i] = FiMinus1[i] + FiMinus2[i];
+    }
+
+    for(int i = 0; i < 9998; i++)
+    {
+        Fi[i+1] += Fi[i] / 10;
+        Fi[i] %= 10;
+    }
+}
+
+void printBigNum(int *input)
+{
+    int i = 9999;
+
+    for(i; i >= 0; i--)
+    {
+        if( input[i] != 0 )
+        {
+            break;
+        }
+    }
+
+    for(i; i >= 0; i--)
+    {
+        std::cout << input[i];
+    }
+}
+
+int main(void)
+{
+    int query;
+    std::string bigNum;
+
+    while(std::cin >> query)
+    {
+        memset(Fi, 0, 10000);
+        memset(FiMinus1, 0, 10000);
+        memset(FiMinus2, 0, 10000);
+        std::cin.ignore();
+
+        if ( query == 0 )
+        {
+            std::cout << "The Fibonacci number for 0 is 0" << std::endl;
+        }
+        else if ( query == 1 )
+        {
+            std::cout << "The Fibonacci number for 1 is 1" << std::endl;
+        }
+        else if ( query == 2 )
+        {
+            std::cout << "The Fibonacci number for 2 is 1" << std::endl;
+        }
+        else
+        {
+            inputBigNum("1", FiMinus1);
+            inputBigNum("1", FiMinus2);
+
+            for(int i = 3; i <= query; i++)
+            {
+                addTwoBigNums(Fi, FiMinus1, FiMinus2);
+                for(int a = 0; a < 9999; a++)
+                {
+                    FiMinus2[a] = FiMinus1[a];
+                }
+                for(int a = 0; a < 9999; a++)
+                {
+                    FiMinus1[a] = Fi[a];
+                }
+            }
+
+            std::cout << "The Fibonacci number for " << query << " is ";
+            printBigNum(Fi);
+            std::cout << std::endl;
+        }
+    }
+    return 0;
+}
