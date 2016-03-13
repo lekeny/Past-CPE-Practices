@@ -1,0 +1,52 @@
+#include <iostream>
+
+int main(void)
+{
+    int biggerBurger, smallerBurger, totalTimeAllowed, smallestTimeSpend = 99999, amountOfBurgerEatenDuringSmallestTimeSpend = 0;
+    while ( std::cin >> biggerBurger >> smallerBurger >> totalTimeAllowed )
+    {
+        smallestTimeSpend = 99999;
+        if ( smallerBurger > biggerBurger )
+        {
+            int temp = smallerBurger;
+            smallerBurger = biggerBurger;
+            biggerBurger = temp;
+        }
+
+        int remainingTime, amountOfBiggerBurgerEaten = 0, amountOfAllBurgerEaten;
+
+        for ( int amountOfSmallerBurgerEaten = totalTimeAllowed / smallerBurger; amountOfSmallerBurgerEaten >= 0; amountOfSmallerBurgerEaten-- )
+        {
+            amountOfBiggerBurgerEaten = 0;
+            remainingTime = totalTimeAllowed - amountOfSmallerBurgerEaten * smallerBurger;
+
+            while ( remainingTime >= biggerBurger )
+            {
+                amountOfBiggerBurgerEaten++;
+                remainingTime -= biggerBurger;
+            }
+
+            if ( smallestTimeSpend > remainingTime )
+            {
+                smallestTimeSpend = remainingTime;
+                amountOfBurgerEatenDuringSmallestTimeSpend = amountOfSmallerBurgerEaten + amountOfBiggerBurgerEaten;
+            }
+
+            if ( !remainingTime )
+            {
+                amountOfAllBurgerEaten = amountOfBiggerBurgerEaten + amountOfSmallerBurgerEaten;
+                break;
+            }
+
+        }
+
+        if ( !remainingTime )
+        {
+            std::cout << amountOfAllBurgerEaten << std::endl;
+        }
+        else
+        {
+            std::cout << amountOfBurgerEatenDuringSmallestTimeSpend << " " << smallestTimeSpend << std::endl;
+        }
+    }
+}
