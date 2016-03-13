@@ -1,0 +1,57 @@
+#include <iostream>
+#include <cstring>
+
+int knownBets[10020];
+
+int main(void)
+{
+    while ( 1 )
+    {
+        std::memset(knownBets, 0, 10020);
+        int amountOfBets;
+        std::cin >> amountOfBets;
+        if ( amountOfBets == 0 )
+        {
+            return 0;
+        }
+
+        int bet, maxGain = 0;
+
+        std::cin >> bet;
+
+
+        if ( bet > 0 )
+        {
+            knownBets[0] = bet;
+            maxGain = bet;
+        }
+
+        for(int i = 1; i < amountOfBets; i++)
+        {
+            std::cin >> bet;
+
+            if ( bet + knownBets[i-1] > bet )   //i.e. A streak!
+            {
+                knownBets[i] = knownBets[i-1] + bet;
+            }
+            else    //i.e. Not a streak!
+            {
+                knownBets[i] = bet;
+            }
+
+            if ( knownBets[i] > maxGain )
+            {
+                maxGain = knownBets[i];
+            }
+        }
+
+        if ( maxGain > 0 )
+        {
+            std::cout << "The maximum winning streak is " <<  maxGain << "." << std::endl;
+        }
+        else
+        {
+            std::cout << "Losing streak." << std::endl;
+        }
+    }
+}
