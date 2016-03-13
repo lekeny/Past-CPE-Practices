@@ -1,0 +1,43 @@
+#include <iostream>
+
+int rev(int input)
+{
+    int revNum = 0;
+    while ( input > 0 )
+    {
+        revNum = revNum + input % 10;
+        input /= 10;
+        if ( input > 0 )
+        {
+            revNum *= 10;
+        }
+    }
+    return revNum;
+}
+
+int main(void)
+{
+    int amountOfCases;
+
+    std::cin >> amountOfCases;
+
+    while ( amountOfCases-- )
+    {
+        int input, revNum, loopAmount = 0;
+        std::cin >> input;
+
+        revNum = rev(input);
+        while ( input != revNum )
+        {
+            loopAmount++;
+            input += revNum;
+            revNum = rev(input);
+            //std::cout << "input is now " << input << " and revNum is now " << revNum <<std::endl;
+        }
+
+        std::cout << loopAmount << " " << input << std::endl;
+    }
+
+    return 0;
+
+}
