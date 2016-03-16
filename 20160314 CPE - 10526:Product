@@ -1,0 +1,95 @@
+//Big Number Multiplier
+
+#include <iostream>
+#include <string>
+#include <string.h>
+
+void enterBigNum(std::string originalNumber, int *bigNum, int BIG_NUM_ARRAY_MAX_SIZE);
+void printBigNum(int *bigNum, int BIG_NUM_ARRAY_MAX_SIZE);
+void multiplyBigNum(int *bigNum1, int *bigNum2, int *product, int BIG_NUM_ARRAY_MAX_SIZE);
+void flushArray(int *arrayToBeFlushed, int BIG_NUM_ARRAY_MAX_SIZE);
+
+int main(void)
+{
+    const int BIG_NUM_ARRAY_MAX_SIZE = 1000;
+    int bigNum1[BIG_NUM_ARRAY_MAX_SIZE];
+    int bigNum2[BIG_NUM_ARRAY_MAX_SIZE];
+    int product[BIG_NUM_ARRAY_MAX_SIZE];
+
+    std::string originalNumber;
+
+    while(std::getline(std::cin, originalNumber))
+    {
+        flushArray(bigNum1, BIG_NUM_ARRAY_MAX_SIZE);
+        flushArray(bigNum2, BIG_NUM_ARRAY_MAX_SIZE);
+        flushArray(product, BIG_NUM_ARRAY_MAX_SIZE);
+
+        enterBigNum(originalNumber, bigNum1, BIG_NUM_ARRAY_MAX_SIZE);
+
+        originalNumber = "";
+
+        std::getline(std::cin, originalNumber);
+
+        enterBigNum(originalNumber, bigNum2, BIG_NUM_ARRAY_MAX_SIZE);
+
+        multiplyBigNum(bigNum1, bigNum2, product, BIG_NUM_ARRAY_MAX_SIZE);
+        printBigNum(product, BIG_NUM_ARRAY_MAX_SIZE);
+        std::cout << std::endl;
+    }
+}
+
+void enterBigNum(std::string originalNumber, int *bigNum, int BIG_NUM_ARRAY_MAX_SIZE)
+{
+    int index = 0;
+    for(int i = originalNumber.size() - 1; i >= 0; i--)
+    {
+        bigNum[index] = originalNumber[i] - '0';
+        index++;
+    }
+}
+
+void printBigNum(int *bigNum, int BIG_NUM_ARRAY_MAX_SIZE)
+{
+    int i = BIG_NUM_ARRAY_MAX_SIZE - 1;
+    while ( bigNum[i] == 0 )
+    {
+        i--;
+    }
+    if ( i < 0 )
+    {
+        std::cout << 0;
+        return;
+    }
+    while ( i >= 0 )
+    {
+        std::cout << bigNum[i];
+        i--;
+    }
+
+}
+
+void multiplyBigNum(int *bigNum1, int *bigNum2, int *product, int BIG_NUM_ARRAY_MAX_SIZE)
+{
+    for(int i = 0; i < BIG_NUM_ARRAY_MAX_SIZE; i++)
+    {
+        for(int j = 0; j < BIG_NUM_ARRAY_MAX_SIZE; j++)
+        {
+            if ( i + j < BIG_NUM_ARRAY_MAX_SIZE )
+            {
+                product[i+j] += bigNum1[i] * bigNum2[j];
+            }
+
+        }
+    }
+
+    for(int i = 0; i < BIG_NUM_ARRAY_MAX_SIZE - 1; i++) //Carry Over
+    {
+        product[i+1] += product[i] / 10;
+        product[i] %= 10;
+    }
+}
+
+void flushArray(int *arrayToBeFlushed, int BIG_NUM_ARRAY_MAX_SIZE)
+{
+    memset(arrayToBeFlushed, 0, BIG_NUM_ARRAY_MAX_SIZE * sizeof(arrayToBeFlushed[0]));
+}
